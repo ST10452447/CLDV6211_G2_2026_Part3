@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EventEase.Models.Venue>
+
+@{
+    ViewData["Title"] = "Venues";
+}
+
+<h1>Venues</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Venue</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" alt="@item.Name" style="width:80px; height:60px; object-fit:cover; border-radius:5px;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No image</span>
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                <td>@Html.DisplayFor(modelItem => item.Capacity)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
